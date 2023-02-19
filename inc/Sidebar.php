@@ -84,30 +84,130 @@
 
           <!-- FOR TRANSACTION LINK -->
           <?php if (str_contains($LINK, "transactions")) : ?>
-            <li class="px-3 py-2 rounded-sm mb-0.5 bg-gray-900 last:mb-0">
-              <a class="block text-gray-200 truncate transition duration-150 hover:text-gray-200" href="transactions">
-                <div class="flex items-center">
-                  <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
-                    <path class="fill-current text-indigo-500" d="M8 1v2H3v19h18V3h-5V1h7v23H1V1z"></path>
-                    <path class="fill-current text-indigo-500" d="M1 1h22v23H1z"></path>
-                    <path class="fill-current text-indigo-300" d="M15 10.586L16.414 12 11 17.414 7.586 14 9 12.586l2 2zM5 0h14v4H5z"></path>
-                  </svg>
-                  <span class="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Transactions</span>
+            <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0  bg-gray-900" x-data="{ open: false }">
+              <a class="block text-gray-200 hover:text-white truncate transition duration-150" href="#0" @click.prevent="sidebarExpanded ? open = !open : sidebarExpanded = true">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center">
+                    <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
+                      <path class="fill-current text-indigo-500" d="M8 1v2H3v19h18V3h-5V1h7v23H1V1z"></path>
+                      <path class="fill-current text-indigo-500" d="M1 1h22v23H1z"></path>
+                      <path class="fill-current text-indigo-300" d="M15 10.586L16.414 12 11 17.414 7.586 14 9 12.586l2 2zM5 0h14v4H5z"></path>
+                    </svg>
+                    <span class="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Transactions</span>
+                  </div>
+                  <div class="flex shrink-0 ml-2 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
+                    <svg class="w-3 h-3 shrink-0 ml-1 fill-current text-gray-400" :class="open && 'transform rotate-180'" viewBox="0 0 12 12">
+                      <path d="M5.9 11.4L.5 6l1.4-1.4 4 4 4-4L11.3 6z" />
+                    </svg>
+                  </div>
                 </div>
               </a>
+              <div class="lg:hidden lg:sidebar-expanded:block 2xl:block">
+                <ul class="pl-9 mt-4" :class="!open && 'hidden'" x-cloak>
+                  <li class="mb-3 last:mb-0"><a class="block text-gray-400 hover:text-gray-200 transition duration-150 truncate" href="all-transactions"><span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">All Transactions</span></a>
+                  </li>
+                  <li class="mb-3 last:mb-0"><a class="block text-gray-400 hover:text-gray-200 transition duration-150 truncate" href="pending-transactions"><span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Pending Transactions</span></a>
+                  </li>
+                  <li class="mb-3"><a class="block text-gray-400 hover:text-gray-200 transition duration-150 truncate" href="approved-transactions"><span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Approved Transactions</span></a>
+                  </li>
+                </ul>
+              </div>
             </li>
           <?php else : ?>
-            <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0">
-              <a class="block text-gray-200 truncate transition duration-150 hover:text-white" href="transactions">
-                <div class="flex items-center">
-                  <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
-                    <path class="fill-current text-gray-600" d="M8 1v2H3v19h18V3h-5V1h7v23H1V1z"></path>
-                    <path class="fill-current text-gray-600" d="M1 1h22v23H1z"></path>
-                    <path class="fill-current text-gray-400" d="M15 10.586L16.414 12 11 17.414 7.586 14 9 12.586l2 2zM5 0h14v4H5z"></path>
-                  </svg>
-                  <span class="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Transactions</span>
+            <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0" x-data="{ open: false }" x-init="$nextTick(() => open = page.startsWith('ecommerce-'))">
+              <a class="block text-gray-200 hover:text-white truncate transition duration-150" href="#0" @click.prevent="sidebarExpanded ? open = !open : sidebarExpanded = true">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center">
+                    <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
+                      <path class="fill-current text-gray-600" d="M8 1v2H3v19h18V3h-5V1h7v23H1V1z"></path>
+                      <path class="fill-current text-gray-600" d="M1 1h22v23H1z"></path>
+                      <path class="fill-current text-gray-400" d="M15 10.586L16.414 12 11 17.414 7.586 14 9 12.586l2 2zM5 0h14v4H5z"></path>
+                    </svg>
+                    <span class="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Transactions</span>
+                  </div>
+                  <div class="flex shrink-0 ml-2 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
+                    <svg class="w-3 h-3 shrink-0 ml-1 fill-current text-gray-400" :class="open && 'transform rotate-180'" viewBox="0 0 12 12">
+                      <path d="M5.9 11.4L.5 6l1.4-1.4 4 4 4-4L11.3 6z" />
+                    </svg>
+                  </div>
                 </div>
               </a>
+              <div class="lg:hidden lg:sidebar-expanded:block 2xl:block">
+                <ul class="pl-9 mt-4" :class="!open && 'hidden'" x-cloak>
+                  <li class="mb-3 last:mb-0"><a class="block text-gray-400 hover:text-gray-200 transition duration-150 truncate" href="all-transactions"><span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">All Transactions</span></a>
+                  </li>
+                  <li class="mb-3 last:mb-0"><a class="block text-gray-400 hover:text-gray-200 transition duration-150 truncate" href="pending-transactions"><span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Pending Transactions</span></a>
+                  </li>
+                  <li class="mb-3"><a class="block text-gray-400 hover:text-gray-200 transition duration-150 truncate" href="approved-transactions"><span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Approved Transactions</span></a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+          <?php endif; ?>
+
+          <!-- FOR LOAN LINK -->
+          <?php if (str_contains($LINK, "loan")) : ?>
+            <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0  bg-gray-900" x-data="{ open: false }">
+              <a class="block text-gray-200 hover:text-white truncate transition duration-150" href="#0" @click.prevent="sidebarExpanded ? open = !open : sidebarExpanded = true">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center">
+                    <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
+                      <path class="fill-current text-indigo-600" d="M19 5h1v14h-2V7.414L5.707 19.707 5 19H4V5h2v11.586L18.293 4.293 19 5Z"></path>
+                      <path class="fill-current text-indigo-400" d="M5 9a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm14 0a4 4 0 1 1 0-8 4 4 0 0 1 0 8ZM5 23a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm14 0a4 4 0 1 1 0-8 4 4 0 0 1 0 8Z"></path>
+                    </svg>
+                    <!-- <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
+                      <path class="fill-current text-indigo-500" d="M8 1v2H3v19h18V3h-5V1h7v23H1V1z"></path>
+                      <path class="fill-current text-indigo-500" d="M1 1h22v23H1z"></path>
+                      <path class="fill-current text-indigo-300" d="M15 10.586L16.414 12 11 17.414 7.586 14 9 12.586l2 2zM5 0h14v4H5z"></path>
+                    </svg> -->
+                    <span class="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Loans</span>
+                  </div>
+                  <div class="flex shrink-0 ml-2 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
+                    <svg class="w-3 h-3 shrink-0 ml-1 fill-current text-gray-400" :class="open && 'transform rotate-180'" viewBox="0 0 12 12">
+                      <path d="M5.9 11.4L.5 6l1.4-1.4 4 4 4-4L11.3 6z" />
+                    </svg>
+                  </div>
+                </div>
+              </a>
+              <div class="lg:hidden lg:sidebar-expanded:block 2xl:block">
+                <ul class="pl-9 mt-4" :class="!open && 'hidden'" x-cloak>
+                  <li class="mb-3 last:mb-0"><a class="block text-gray-400 hover:text-gray-200 transition duration-150 truncate" href="loans"><span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">All Loans</span></a>
+                  </li>
+                  <li class="mb-3 last:mb-0"><a class="block text-gray-400 hover:text-gray-200 transition duration-150 truncate" href="pending-loans"><span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Pending Loans</span></a>
+                  </li>
+                  <li class="mb-3"><a class="block text-gray-400 hover:text-gray-200 transition duration-150 truncate" href="approved-loans"><span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Approved Loans</span></a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+          <?php else : ?>
+            <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0" x-data="{ open: false }" x-init="$nextTick(() => open = page.startsWith('ecommerce-'))">
+              <a class="block text-gray-200 hover:text-white truncate transition duration-150" href="#0" @click.prevent="sidebarExpanded ? open = !open : sidebarExpanded = true">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center">
+                    <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
+                      <path class="fill-current text-gray-600" d="M19 5h1v14h-2V7.414L5.707 19.707 5 19H4V5h2v11.586L18.293 4.293 19 5Z"></path>
+                      <path class="fill-current text-gray-400" d="M5 9a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm14 0a4 4 0 1 1 0-8 4 4 0 0 1 0 8ZM5 23a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm14 0a4 4 0 1 1 0-8 4 4 0 0 1 0 8Z"></path>
+                    </svg>
+                    <span class="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Loans</span>
+                  </div>
+                  <div class="flex shrink-0 ml-2 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
+                    <svg class="w-3 h-3 shrink-0 ml-1 fill-current text-gray-400" :class="open && 'transform rotate-180'" viewBox="0 0 12 12">
+                      <path d="M5.9 11.4L.5 6l1.4-1.4 4 4 4-4L11.3 6z" />
+                    </svg>
+                  </div>
+                </div>
+              </a>
+              <div class="lg:hidden lg:sidebar-expanded:block 2xl:block">
+                <ul class="pl-9 mt-4" :class="!open && 'hidden'" x-cloak>
+                  <li class="mb-3 last:mb-0"><a class="block text-gray-400 hover:text-gray-200 transition duration-150 truncate" href="loans"><span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">All Loans</span></a>
+                  </li>
+                  <li class="mb-3 last:mb-0"><a class="block text-gray-400 hover:text-gray-200 transition duration-150 truncate" href="pending-loans"><span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Pending Loans</span></a>
+                  </li>
+                  <li class="mb-3"><a class="block text-gray-400 hover:text-gray-200 transition duration-150 truncate" href="approved-loans"><span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Approved Loans</span></a>
+                  </li>
+                </ul>
+              </div>
             </li>
           <?php endif; ?>
         </ul>

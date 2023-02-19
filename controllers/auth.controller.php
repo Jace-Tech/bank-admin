@@ -1,13 +1,11 @@
 <?php 
-session_start();
-require(realpath("./../config/index.php"));
-
+require("./inc/index.php");
 
 // REGISTER ADMIN
 if(isset($_POST["register"])) {
-  $email = sanitizeInput($_POST['email']);
-  $name = sanitizeInput($_POST['name']);
-  $password = sanitizeInput($_POST['password']);
+  $email = sanitizeInput($_POST["email"]);
+  $name = sanitizeInput($_POST["name"]);
+  $password = sanitizeInput($_POST["password"]);
   $role = "admin";
 
   $body = [
@@ -19,7 +17,8 @@ if(isset($_POST["register"])) {
   ];
 
   // Make Request
-  $data = fetch("https://bank-api-xwbj.onrender.com/api/auth/sign-up/", "POST", $body);
+  $data = fetch("$BASE_URL_TEST/auth/admin/sign-up", "POST", $body);
+
   if(!$data["success"]) {
     setAlert($data["message"], "error");
     header("Location: ../signup");
@@ -32,8 +31,8 @@ if(isset($_POST["register"])) {
 
 // LOGIN ADMIN
 if(isset($_POST["login"])) {
-  $email = sanitizeInput($_POST['email']);
-  $password = sanitizeInput($_POST['password']);
+  $email = sanitizeInput($_POST["email"]);
+  $password = sanitizeInput($_POST["password"]);
 
   $body = [
     "email" => $email,
@@ -41,7 +40,7 @@ if(isset($_POST["login"])) {
   ];
 
   // Make Request
-  $data = fetch("/auth/sign-in/", "POST", $body);
+  $data = fetch("$BASE_URL_TEST/auth/sign-in/", "POST", $body);
   if(!$data) {
     setAlert("Something went wrong. Please try again", "error");
     header("Location: ../");
@@ -55,7 +54,7 @@ if(isset($_POST["login"])) {
   }
 
   // Create Sesstion
-  $_SESSION['AUTH_ADMIN'] = json_encode($data['data']);
+  $_SESSION["AUTH_ADMIN"] = json_encode($data["data"]);
   setAlert("Logged in!");
   header("Location: ../dashboard");
 } 

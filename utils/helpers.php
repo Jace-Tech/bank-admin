@@ -9,9 +9,12 @@ function fetch(string $url, $method = 'GET', array $payloads = null, array $_hea
 {
   try {
     $curl = curl_init();
-    $fields_string = $payloads ? http_build_query($payloads) : null;
-    $headers = ["Content-Type" => "application/json"];
-    $headers = $_headers ?? array_merge($headers, $_headers);
+    $fields_string = $payloads ? json_encode($payloads) : null;
+    $headers = ["Content-Type: application/json"];
+
+    if($_headers !== null && is_array($_headers)) {
+      $headers = array_merge($headers, $_headers);
+    }
 
     curl_setopt_array($curl, array(
       CURLOPT_URL => $url,
@@ -25,12 +28,14 @@ function fetch(string $url, $method = 'GET', array $payloads = null, array $_hea
     ));
 
     $response = json_decode(curl_exec($curl), true);
+    // $response = curl_exec($curl);
     $err = curl_error($curl);
     curl_close($curl);
 
     if ($err) throw new Exception($err);
     return $response;
   } catch (Exception $e) {
+    die();
     return [
       "success" => false,
       "message" => chechMessage($e->getMessage()),
@@ -58,4 +63,15 @@ function getGreeting() {
   if($hour >= 0 && $hour < 12) return "Morning";
   else if($hour >= 12 && $hour < 16) return "Afternoon";
   else return "Evening";
+}
+
+function getStatsColor (string $stats) {
+  return (strtolower($stats) === "approved" ? "bg-green-500 text-white " :
+        (strtolower($stats) === "pending" ? "bg-yellow-500 text-white " : "bg-red-500 text-white"));
+}
+
+function getLoanColor (string $stats) {
+  return (strtolower($stats) === "active" ? "bg-indigo-500 text-white " :
+        (strtolower($stats) === "completed" ? "bg-blue-400 text-white " :
+        (strtolower($stats) === "pending" ? "bg-yellow-500 text-white " : "bg-red-500 text-white")));
 }

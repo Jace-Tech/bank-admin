@@ -1,10 +1,20 @@
 <?php  
-require_once("./utils/helpers.php");
-
 
 function getAllUsers($token) {
-  $headers = [ "authorization" => "Bearer $token" ];
-  $result = fetch("https://bank-api-xwbj.onrender.com/api/user/", "GET", null, $headers);
+  global $BASE_URL_TEST;
+  $headers = ["Authorization: Bearer $token"];
+  $result = fetch("$BASE_URL_TEST/user/", "GET", null, $headers);
+  if(!$result["success"]) {
+    setAlert($result['message'], "error");
+    return [];
+  }
+  return $result['data'];
+}
+
+function getAllAccounts($token) {
+  global $BASE_URL_TEST;
+  $headers = ["Authorization: Bearer $token"];
+  $result = fetch("$BASE_URL_TEST/account/", "GET", null, $headers);
   if(!$result["success"]) {
     setAlert($result['message'], "error");
     return [];
@@ -13,8 +23,78 @@ function getAllUsers($token) {
 }
 
 function getAllTransactions($token) {
-  $headers = [ "authorization" => "Bearer $token" ];
-  $result = fetch("https://bank-api-xwbj.onrender.com/api/transaction/", "GET", null, $headers);
+  global $BASE_URL_TEST;
+  $headers = [ "Authorization: Bearer $token" ];
+  $result = fetch("$BASE_URL_TEST/transaction/", "GET", null, $headers);
+  if(!$result["success"]) {
+    setAlert($result['message'], "error");
+    return [];
+  }
+  return $result['data'];
+}
+
+function getAllLoans($token) {
+  global $BASE_URL_TEST;
+  $headers = [ "Authorization: Bearer $token" ];
+  $result = fetch("$BASE_URL_TEST/loan/", "GET", null, $headers);
+  if(!$result["success"]) {
+    setAlert($result['message'], "error");
+    return [];
+  }
+  return $result['data'];
+}
+
+function getUserAccount($token, $id) {
+  global $BASE_URL_TEST;
+  $headers = [ "Authorization: Bearer $token" ];
+  $result = fetch("$BASE_URL_TEST/user/$id/account", "GET", null, $headers);
+  if(!$result["success"]) {
+    setAlert($result['message'], "error");
+    return [];
+  }
+  return $result['data'];
+}
+
+function getUsersLoan($token, $id) {
+  global $BASE_URL_TEST;
+  $headers = [ "Authorization: Bearer $token" ];
+  $result = fetch("$BASE_URL_TEST/loan/user/$id", "GET", null, $headers);
+  if(!$result["success"]) {
+    setAlert($result['message'], "error");
+    return [];
+  }
+  return $result['data'];
+}
+
+function getAllPendingLoan($token) {
+  $LOANS = getAllLoans($token);
+  return array_values(array_filter($LOANS, function($loan) {
+    return $loan['status'] == 'pending';
+  }));
+}
+
+function getAllActiveLoan($token) {
+  $LOANS = getAllLoans($token);
+  return array_values(array_filter($LOANS, function($loan) {
+    return $loan['status'] == 'active' || $loan['status'] == 'completed';
+  }));
+}
+
+function getUsersTransactions($token, $id) {
+  global $BASE_URL_TEST;
+  $headers = [ "Authorization: Bearer $token" ];
+  $result = fetch("$BASE_URL_TEST/transaction/user/$id", "GET", null, $headers);
+  if(!$result["success"]) {
+    setAlert($result['message'], "error");
+    return [];
+  }
+  return $result['data'];
+}
+
+function getAllUserAllowedList($token, $userId) {
+  global $BASE_URL_TEST;
+  $headers = [ "Authorization: Bearer $token" ];
+  $result = fetch("$BASE_URL_TEST/allowed/user/$userId", "GET", null, $headers);
   if(!$result["success"]) {
     setAlert($result['message'], "error");
     return [];

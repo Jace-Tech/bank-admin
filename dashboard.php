@@ -1,4 +1,4 @@
-<?php include("./addons/Session.php") ?>
+<?php include("./config/index.php") ?>
 <?php include("./middleware/auth.middleware.php") ?>
 
 <?php 

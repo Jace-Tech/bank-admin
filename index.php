@@ -1,4 +1,4 @@
-<?php include("./addons/Session.php"); ?>
+<?php require("./config/index.php"); ?>
 <?php include("./middleware/quest.middleware.php"); ?>
 <!doctype html>
 <html lang="en">

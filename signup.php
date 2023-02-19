@@ -56,7 +56,7 @@
 
               </div>
               <div class="flex items-center justify-between mt-6">
-                <button name="register" class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-3 whitespace-nowrap">Sign Up</button>
+                <button name="register" class="btn bg-indigo-500 hover:bg-indigo-600 text-white  whitespace-nowrap">Sign Up</button>
               </div>
             </form>
             <div class="pt-5 mt-6 border-t border-gray-200">
