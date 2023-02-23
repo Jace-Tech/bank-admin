@@ -1,3 +1,4 @@
+<?php $LINK = "loan"; ?>
 <?php include("./config/index.php") ?>
 <?php include("./middleware/auth.middleware.php") ?>
 

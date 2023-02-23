@@ -1,3 +1,4 @@
+<?php $LINK = "transactions"; ?>
 <?php include("./config/index.php") ?>
 <?php include("./middleware/auth.middleware.php") ?>
 

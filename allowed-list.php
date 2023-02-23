@@ -1,3 +1,4 @@
+<?php $LINK = "users"; ?>
 <?php include("./config/index.php") ?>
 <?php include("./middleware/auth.middleware.php") ?>
 <?php include("./inc/banks.php") ?>
