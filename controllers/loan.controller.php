@@ -3,11 +3,11 @@
 require("./inc/index.php");
 
 
-if(isset($_GET['cancel'])) {
+if(isset($_POST['cancel'])) {
   global $BASE_URL;
   global $TOKEN;
 
-  $id = $_GET['cancel'];
+  $id = $_POST['cancel'];
   $data = fetch("$BASE_URL/loan/$id/cancel", "GET", null, ["Authorization: Bearer $TOKEN"]);
   if(!$data["success"]) {
     setAlert($data["message"], "error");
