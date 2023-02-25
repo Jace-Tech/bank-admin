@@ -1,6 +1,21 @@
-<?php $LINK = "users"; ?>
 <?php include("./config/index.php") ?>
 <?php include("./middleware/auth.middleware.php") ?>
+
+<?php
+$ALL_ACCOUNTS = getAllAccounts($TOKEN);
+$SEARCHED_USER = [];
+
+if (isset($_GET['search'])) {
+  $search = $_GET['search'];
+  $SEARCHED_USER = array_values(array_filter($ALL_ACCOUNTS, function ($account) {
+    global $search;
+    return preg_match("/$search/", $account["user"]['name']) || 
+          preg_match("/$search/", $account["user"]['email']) || 
+          preg_match("/$search/", $account['accountNumber']);
+  }));
+}
+
+?>
 <html lang="en">
 
 <head>
