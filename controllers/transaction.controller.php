@@ -3,13 +3,13 @@ require("./inc/index.php");
 
 
 if(isset($_POST['delete'])) {
-  global $BASE_URL_TEST;
+  global $BASE_URL;
   global $TOKEN;
 
   $id = $_POST['delete'];
   $previous = $_SERVER['HTTP_REFERER'];
 
-  $data = fetch("$BASE_URL_TEST/transaction/$id", "DELETE", null, ["Authorization: Bearer $TOKEN"]);
+  $data = fetch("$BASE_URL/transaction/$id", "DELETE", null, ["Authorization: Bearer $TOKEN"]);
   if(!$data["success"]) {
     setAlert($data["message"], "error");
     header("Location: $previous");
@@ -21,7 +21,7 @@ if(isset($_POST['delete'])) {
 }
 
 if(isset($_POST['backdate'])) {
-  global $BASE_URL_TEST;
+  global $BASE_URL;
   global $TOKEN;
 
   $id = $_POST['id'];
@@ -32,7 +32,7 @@ if(isset($_POST['backdate'])) {
     "date" => $date
   ];
 
-  $data = fetch("$BASE_URL_TEST/transaction/$id/backdate", "POST", $payload, ["Authorization: Bearer $TOKEN"]);
+  $data = fetch("$BASE_URL/transaction/$id/backdate", "POST", $payload, ["Authorization: Bearer $TOKEN"]);
   if(!$data["success"]) {
     setAlert($data["message"], "error");
     header("Location: $previous");
@@ -44,14 +44,14 @@ if(isset($_POST['backdate'])) {
 }
 
 if(isset($_POST['approve'])) {
-  global $BASE_URL_TEST;
+  global $BASE_URL;
   global $TOKEN;
 
   $id = $_POST['approve'];
   $previous = $_SERVER['HTTP_REFERER'];
 
 
-  $data = fetch("$BASE_URL_TEST/transaction/$id/approve", "GET", null, ["Authorization: Bearer $TOKEN"]);
+  $data = fetch("$BASE_URL/transaction/$id/approve", "GET", null, ["Authorization: Bearer $TOKEN"]);
   if(!$data["success"]) {
     setAlert($data["message"], "error");
     header("Location: $previous");
@@ -63,14 +63,14 @@ if(isset($_POST['approve'])) {
 }
 
 if(isset($_POST['cancel'])) {
-  global $BASE_URL_TEST;
+  global $BASE_URL;
   global $TOKEN;
 
   $id = $_POST['cancel'];
   $previous = $_SERVER['HTTP_REFERER'];
 
 
-  $data = fetch("$BASE_URL_TEST/transaction/$id/cancel", "GET", null, ["Authorization: Bearer $TOKEN"]);
+  $data = fetch("$BASE_URL/transaction/$id/cancel", "GET", null, ["Authorization: Bearer $TOKEN"]);
   if(!$data["success"]) {
     setAlert($data["message"], "error");
     header("Location: $previous");

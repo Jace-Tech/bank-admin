@@ -17,7 +17,7 @@ if(isset($_POST["register"])) {
   ];
 
   // Make Request
-  $data = fetch("$BASE_URL_TEST/auth/admin/sign-up", "POST", $body);
+  $data = fetch("$BASE_URL/auth/admin/sign-up", "POST", $body);
 
   if(!$data["success"]) {
     setAlert($data["message"], "error");
@@ -40,7 +40,7 @@ if(isset($_POST["login"])) {
   ];
 
   // Make Request
-  $data = fetch("$BASE_URL_TEST/auth/sign-in/", "POST", $body);
+  $data = fetch("$BASE_URL/auth/sign-in/", "POST", $body);
   if(!$data) {
     setAlert("Something went wrong. Please try again", "error");
     header("Location: ../");

@@ -2,7 +2,7 @@
 require("./inc/index.php");
 
 if(isset($_POST['credit'])) {
-  global $BASE_URL_TEST;
+  global $BASE_URL;
   global $TOKEN;
 
   $id = $_POST['user'];
@@ -14,7 +14,7 @@ if(isset($_POST['credit'])) {
     "amount" => $amount,
   ];
 
-  $data = fetch("$BASE_URL_TEST/account/$account/credit", "POST", $body, ["Authorization: Bearer $TOKEN"]);
+  $data = fetch("$BASE_URL/account/$account/credit", "POST", $body, ["Authorization: Bearer $TOKEN"]);
   if(!$data["success"]) {
     setAlert($data["message"], "error");
     header("Location: ../users");

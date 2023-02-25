@@ -1,9 +1,9 @@
 <?php  
 
 function getAllUsers($token) {
-  global $BASE_URL_TEST;
+  global $BASE_URL;
   $headers = ["Authorization: Bearer $token"];
-  $result = fetch("$BASE_URL_TEST/user/", "GET", null, $headers);
+  $result = fetch("$BASE_URL/user/", "GET", null, $headers);
   if(!$result["success"]) {
     setAlert($result['message'], "error");
     return [];
@@ -12,9 +12,9 @@ function getAllUsers($token) {
 }
 
 function getAllAccounts($token) {
-  global $BASE_URL_TEST;
+  global $BASE_URL;
   $headers = ["Authorization: Bearer $token"];
-  $result = fetch("$BASE_URL_TEST/account/", "GET", null, $headers);
+  $result = fetch("$BASE_URL/account/", "GET", null, $headers);
   if(!$result["success"]) {
     setAlert($result['message'], "error");
     return [];
@@ -23,9 +23,9 @@ function getAllAccounts($token) {
 }
 
 function getAllTransactions($token) {
-  global $BASE_URL_TEST;
+  global $BASE_URL;
   $headers = [ "Authorization: Bearer $token" ];
-  $result = fetch("$BASE_URL_TEST/transaction/", "GET", null, $headers);
+  $result = fetch("$BASE_URL/transaction/", "GET", null, $headers);
   if(!$result["success"]) {
     setAlert($result['message'], "error");
     return [];
@@ -34,9 +34,9 @@ function getAllTransactions($token) {
 }
 
 function getAllLoans($token) {
-  global $BASE_URL_TEST;
+  global $BASE_URL;
   $headers = [ "Authorization: Bearer $token" ];
-  $result = fetch("$BASE_URL_TEST/loan/", "GET", null, $headers);
+  $result = fetch("$BASE_URL/loan/", "GET", null, $headers);
   if(!$result["success"]) {
     setAlert($result['message'], "error");
     return [];
@@ -45,9 +45,9 @@ function getAllLoans($token) {
 }
 
 function getUserAccount($token, $id) {
-  global $BASE_URL_TEST;
+  global $BASE_URL;
   $headers = [ "Authorization: Bearer $token" ];
-  $result = fetch("$BASE_URL_TEST/user/$id/account", "GET", null, $headers);
+  $result = fetch("$BASE_URL/user/$id/account", "GET", null, $headers);
   if(!$result["success"]) {
     setAlert($result['message'], "error");
     return [];
@@ -56,9 +56,9 @@ function getUserAccount($token, $id) {
 }
 
 function getUsersLoan($token, $id) {
-  global $BASE_URL_TEST;
+  global $BASE_URL;
   $headers = [ "Authorization: Bearer $token" ];
-  $result = fetch("$BASE_URL_TEST/loan/user/$id", "GET", null, $headers);
+  $result = fetch("$BASE_URL/loan/user/$id", "GET", null, $headers);
   if(!$result["success"]) {
     setAlert($result['message'], "error");
     return [];
@@ -81,9 +81,9 @@ function getAllActiveLoan($token) {
 }
 
 function getUsersTransactions($token, $id) {
-  global $BASE_URL_TEST;
+  global $BASE_URL;
   $headers = [ "Authorization: Bearer $token" ];
-  $result = fetch("$BASE_URL_TEST/transaction/user/$id", "GET", null, $headers);
+  $result = fetch("$BASE_URL/transaction/user/$id", "GET", null, $headers);
   if(!$result["success"]) {
     setAlert($result['message'], "error");
     return [];
@@ -92,9 +92,9 @@ function getUsersTransactions($token, $id) {
 }
 
 function getAllUserAllowedList($token, $userId) {
-  global $BASE_URL_TEST;
+  global $BASE_URL;
   $headers = [ "Authorization: Bearer $token" ];
-  $result = fetch("$BASE_URL_TEST/allowed/user/$userId", "GET", null, $headers);
+  $result = fetch("$BASE_URL/allowed/user/$userId", "GET", null, $headers);
   if(!$result["success"]) {
     setAlert($result['message'], "error");
     return [];
