@@ -75,3 +75,6 @@ function getLoanColor (string $stats) {
         (strtolower($stats) === "completed" ? "bg-blue-400 text-white " :
         (strtolower($stats) === "pending" ? "bg-yellow-500 text-white " : "bg-red-500 text-white")));
 }
+
+
+$transaction_types = ['deposit', 'withdraw', 'transfer', 'wire'];

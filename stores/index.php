@@ -11,6 +11,7 @@ function getAllUsers($token) {
   return $result['data'];
 }
 
+
 function getAllAccounts($token) {
   global $BASE_URL;
   $headers = ["Authorization: Bearer $token"];
